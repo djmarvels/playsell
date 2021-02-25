@@ -20,18 +20,42 @@
             border-bottom: none;
             box-shadow: inset 0px -2px 0px transparent;
             transition: all 350ms;
+            .v-icon {
+              transition: transform 350ms;
+              svg {
+                width: 17px;
+                height: 16px;
+                g, path {
+                  transition: fill 350ms;
+                  fill: $grey-500;
+                }
+              }
+            }
             &:hover {
               background-color: transparent;
               color: $primary;
+              .v-icon svg g, .v-icon svg path {
+                fill: $primary;
+              }
             }
           }
           &__icon-arrow {
             display: none;
           }
+          &.is-opened {
+            .el-submenu__title {
+              .v-icon {
+                transform: rotateZ(180deg) translateY(-2px);
+              }
+            }
+          }
           &.active {
             .el-submenu__title {
               color: $primary;
               box-shadow: inset 0px -2px 0px #3366FF;
+              .v-icon svg g, .v-icon svg path {
+                fill: $primary;
+              }
             }
           }
         }
@@ -77,6 +101,10 @@
           line-height: 20px;
           color: $grey-500;
           font-feature-settings: 'pnum' on, 'lnum' on;
+          transition: color 350ms;
+          &:hover {
+            color: $primary;
+          }
         }
       }
     }
@@ -173,6 +201,45 @@
   }
 
   &-actions {
+    &__popover {
+      &-button {
+        &-inner {
+          border: 0;
+          background-color: transparent;
+          padding: 0;
+          margin: 0;
+          outline: none;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: background-color 350ms;
+          .v-icon {
+            width: 24px;
+            height: 24px;
+            svg {
+              width: 24px;
+              height: 24px;
+              g, path {
+                transition: fill 350ms;
+                fill: $grey-500;
+              }
+            }
+          }
+          &:hover {
+            background-color: $grey-200;
+            .v-icon svg g, .v-icon svg path {
+              fill: $primary;
+            }
+          }
+        }
+        &:not(&:last-child) {
+          margin-right: 8px;
+        }
+      }
+    }
     &--logged {
       .navbar-actions {
         &__inner {
@@ -192,6 +259,7 @@
           align-items: center;
           justify-content: center;
           cursor: pointer;
+          transition: background-color 350ms;
           &:not(&:last-child) {
             margin-right: 8px;
           }
@@ -202,6 +270,7 @@
               width: 24px;
               height: 24px;
               g, path {
+                transition: fill 350ms;
                 fill: $grey-500;
               }
             }
@@ -220,6 +289,7 @@
   &-balance {
     padding: 8px 12px;
     cursor: pointer;
+    transition: background-color 350ms;
     span.v-icon {
       margin-right: 8px;
       width: 24px;
@@ -228,12 +298,229 @@
         width: 24px;
         height: 24px;
         g, path {
+          transition: fill 350ms;
           fill: $grey-500;
         }
       }
     }
     &:hover {
       .v-icon svg g, .v-icon svg path {
+        fill: $primary;
+      }
+    }
+  }
+  &-user {
+    &-list {
+      margin-top: 16px;
+      width: 100%;
+      padding-left: 0;
+      margin-bottom: 0;
+      list-style-type: none;
+    }
+    &-item {
+      width: 100%;
+      &:last-child {
+        .navbar-user-link {
+          .v-icon svg g, .v-icon svg path {
+            fill: $error;
+          }
+        }
+      }
+    }
+    &-link {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 0;
+      border: 0;
+      outline: none;
+      background-color: $white;
+      padding: 16px;
+      white-space: nowrap;
+      cursor: pointer;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      text-align: center;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      color: $grey-500;
+      transition: color, background-color 350ms;
+      .v-icon {
+        width: 16px;
+        height: 16px;
+        margin-right: 12px;
+        svg {
+          width: 16px;
+          height: 16px;
+          g, path {
+            transition: fill 350ms;
+            fill: $grey;
+          }
+        }
+      }
+      &:hover {
+        background-color: $grey-200;
+        color: $primary;
+        svg g, svg path {
+          fill: $primary;
+        }
+      }
+    }
+  }
+  &-alert {
+    &-list {
+      background-color: $white;
+      padding-left: 0;
+      margin-bottom: 0;
+      margin-top: 16px;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 6px 11px rgba(23, 29, 53, 0.08);
+      outline: none !important;
+    }
+    &-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 16px;
+      &:not(:last-child) {
+        border-bottom: 1px solid $grey-200;
+      }
+    }
+    &-content {
+      @include only-width (calc(100% - 36px - 12px));
+    }
+    &-title {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      color: $grey-500;
+      word-break: break-word;
+      span {
+        color: $primary;
+      }
+    }
+    &-text {
+      color: $grey-500;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      word-break: break-word;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+    }
+    &-action {
+      display: block;
+      width: 100%;
+      word-break: break-word;
+      margin-top: 8px;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      text-decoration: none;
+      color: $primary;
+    }
+    &-date {
+      margin-top: 12px;
+      font-family: 'Open Sans', sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 20px;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      color: $grey;
+    }
+    &-icon {
+      @include only-width (36px);
+      @include only-height (36px);
+      background-color: $grey-200;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      .v-icon {
+        width: 24px;
+        height: 24px;
+      }
+      &--done_all {
+        svg g, svg path {
+          fill: $success;
+        }
+      }
+      &--warning {
+        svg g, svg path {
+          fill: $warning;
+        }
+      }
+      &--buy {
+        svg g, svg path {
+          fill: $grey-500;
+        }
+      }
+    }
+  }
+  &-actions__popover {
+    outline: none !important;
+  }
+}
+
+.popover-buttons {
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-top: 16px;
+  list-style-type: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+  &__item {
+    width: 100%;
+  }
+  &__button {
+    width: 100%;
+    border: 0;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    background-color: $white;
+    padding: 16px;
+    white-space: nowrap;
+    cursor: pointer;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: $grey-500;
+    transition: color, background-color 350ms;
+    .v-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 12px;
+      svg {
+        width: 16px;
+        height: 16px;
+        g, path {
+          transition: fill 350ms;
+          fill: $grey;
+        }
+      }
+    }
+    &:hover {
+      background-color: $grey-200;
+      color: $primary;
+      svg g, svg path {
         fill: $primary;
       }
     }

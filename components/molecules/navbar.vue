@@ -11,7 +11,7 @@
         <el-menu-item index="steam" :class="{ 'active': (activeMenu === 'steam') }">Steam</el-menu-item>
         <el-menu-item index="minecraft" :class="{ 'active': (activeMenu === 'minecraft') }">Minecraft</el-menu-item>
         <el-submenu index="all_games" popper-class="navbar-submenu-popper" :class="{ 'active': (activeMenu === 'all_games') }">
-          <template slot="title">Все игры</template>
+          <template slot="title">Все игры <icon name="chevron_down" /></template>
           <div class="navbar-submenu" slot="default">
             <div class="navbar-sublist" v-for="(menu, menu_id) in sublist[0]" :key="menu_id">
               <div class="navbar-sublist__header">{{ menu.title }}</div>
@@ -40,26 +40,102 @@
       </div>
       <div class="navbar-actions navbar-actions--logged" v-if="logged">
         <div class="navbar-actions__inner">
-          <button class="navbar-actions__button" type="button">
-            <icon name="plus" />
-          </button>
+          <el-popover placement="bottom-start" width="189" trigger="click" class="navbar-actions__popover-button" popper-class="navbar-actions__popover" :append-to-body="true" :visible-arrow="false">
+            <button type="button" slot="reference" class="navbar-actions__popover-button-inner">
+              <icon name="plus" />
+            </button>
+            <div class="navbar-actions__popover-inner">
+              <ul class="popover-buttons">
+                <li class="popover-buttons__item">
+                  <button type="button" class="popover-buttons__button">
+                    <icon name="buy" />Продать аккаунт
+                  </button>
+                </li>
+                <li class="popover-buttons__item">
+                  <button type="button" class="popover-buttons__button">
+                    <icon name="filter" />Массовая заливка
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </el-popover>
+
           <button class="navbar-actions__button" type="button">
             <icon name="sms" />
           </button>
-          <button class="navbar-actions__button" type="button">
-            <icon name="bell" />
-          </button>
+
+          <el-popover placement="bottom-start" width="400" trigger="click" class="navbar-actions__popover-button" popper-class="navbar-actions__popover" :append-to-body="true" :visible-arrow="false">
+            <button class="navbar-actions__popover-button-inner" type="button" slot="reference">
+              <icon name="bell" />
+            </button>
+            <div slot="default" class="navbar-alert-list">
+              <div class="navbar-alert-item">
+                <div class="navbar-alert-icon">
+                  <icon name="done_all" class="navbar-alert-icon--done_all" />
+                </div>
+                <div class="navbar-alert-content">
+                  <div class="navbar-alert-title">Вы успешно продали товар <span>#4638264</span></div>
+                  <div class="navbar-alert-text">Деньги заморожены на 24 часа.</div>
+                  <span class="navbar-alert-action">+ 1364 ₽</span>
+                  <div class="navbar-alert-date">22.01.2021 11:47</div>
+                </div>
+              </div>
+              <div class="navbar-alert-item">
+                <div class="navbar-alert-icon">
+                  <icon name="warning" class="navbar-alert-icon--warning" />
+                </div>
+                <div class="navbar-alert-content">
+                  <div class="navbar-alert-title">У покупателя возникла проблема с заказом <span>#4638264</span></div>
+                  <nuxt-link class="navbar-alert-action" :to="{ name: 'index' }">Ознакомиться</nuxt-link>
+                  <div class="navbar-alert-date">22.01.2021 11:47</div>
+                </div>
+              </div>
+              <div class="navbar-alert-item">
+                <div class="navbar-alert-icon">
+                  <icon name="buy" class="navbar-alert-icon--buy" />
+                </div>
+                <div class="navbar-alert-content">
+                  <div class="navbar-alert-title">Вы успешно купили товар <span>#4638264</span></div>
+                  <div class="navbar-alert-text">Проверьте правильность данных товара.</div>
+                  <nuxt-link class="navbar-alert-action" :to="{ name: 'index' }">Перейти к товару</nuxt-link>
+                  <div class="navbar-alert-date">22.01.2021 11:47</div>
+                </div>
+              </div>
+            </div>
+          </el-popover>
+
         </div>
         <div class="navbar-balance">
           <icon name="pay_credit_card" />
           <span>45 000,12 ₽</span>
         </div>
-        <div class="navbar-user">
-          <div class="navbar-user__inner">
+        <el-popover class="navbar-user" placement="bottom-end" width="180" trigger="click" popper-class="navbar-user-popover" :append-to-body="true" :visible-arrow="false">
+          <div class="navbar-user__inner" slot="reference">
             <div class="navbar-user-label">Danil Gortsuev</div>
             <div class="navbar-user-image" :style="{ backgroundImage: 'url('+require(`@/assets/design/avatar.png`)+')' }" />
           </div>
-        </div>
+          <ul class="navbar-user-list" slot="default">
+            <li class="navbar-user-item">
+              <button type="button" class="navbar-user-link"><icon name="user" />Профиль</button>
+            </li>
+            <li class="navbar-user-item">
+              <button type="button" class="navbar-user-link"><icon name="pay_credit_card" />Баланс</button>
+            </li>
+            <li class="navbar-user-item">
+              <button type="button" class="navbar-user-link"><icon name="setting" />Настройки</button>
+            </li>
+            <li class="navbar-user-item">
+              <button type="button" class="navbar-user-link"><icon name="done_all" />Продажи</button>
+            </li>
+            <li class="navbar-user-item">
+              <button type="button" class="navbar-user-link"><icon name="buy" />Покупки</button>
+            </li>
+            <li class="navbar-user-item">
+              <button type="button" class="navbar-user-link"><icon name="exit" />Выход</button>
+            </li>
+          </ul>
+        </el-popover>
+
       </div>
     </div>
   </div>
@@ -226,6 +302,10 @@ export default {
     max-width: 90px;
     width: 90px;
     white-space: nowrap;
+    transition: color 350ms;
+    &:hover {
+      color: $primary;
+    }
   }
 
   &-menu {
@@ -327,11 +407,13 @@ export default {
   &-user {
     margin-left: 8px;
     cursor: pointer;
+    transition: background-color 350ms;
     &__inner {
       display: flex;
       align-items: center;
       justify-content: flex-start;
       padding: 4px 8px;
+      outline: none;
     }
     &-label {
       font-style: normal;
@@ -344,6 +426,7 @@ export default {
       height: 20px;
       margin-right: 8px;
       color: $grey-500;
+      transition: color 350ms;
     }
     &-image {
       width: 32px;
