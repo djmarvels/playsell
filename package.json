@@ -21,6 +21,7 @@
     "filepond-plugin-image-preview": "^4.6.4",
     "jquery": "^3.5.1",
     "moment": "^2.29.1",
+    "normalize.css": "^8.0.1",
     "nuxt": "^2.14.6",
     "nuxt-sass-resources-loader": "^2.0.5",
     "nuxt-socket-io": "^1.1.14",

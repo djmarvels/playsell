@@ -1,0 +1,43 @@
+@import "colors";
+@import "spacing";
+
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.el {
+  &-main, &-container {
+    width: 100%;
+  }
+  &-container {
+    flex-wrap: wrap;
+    background: $grey-200;
+  }
+  &-main {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+  }
+}
+
+@each $index, $space in $spacings {
+  .mt-#{$index} {
+    margin-top: $space;
+  }
+  .mb-#{$index} {
+    margin-bottom: $space;
+  }
+  .ml-#{$index} {
+    margin-left: $space;
+  }
+  .mr-#{$index} {
+    margin-right: $space;
+  }
+  .m-#{$index} {
+    margin: $space;
+  }
+}

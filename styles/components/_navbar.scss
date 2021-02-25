@@ -1,0 +1,241 @@
+.navbar {
+  &-menu {
+    &.el-menu {
+      &--horizontal {
+        color: #000;
+        .el-submenu {
+          float: none;
+          &__title {
+            float: none;
+            height: 72px;
+            line-height: 20px;
+            padding: 10px 8px;
+            display: flex;
+            align-items: center;
+            font-feature-settings: 'pnum' on, 'lnum' on;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            color: $grey-600;
+            border-bottom: none;
+            box-shadow: inset 0px -2px 0px transparent;
+            transition: all 350ms;
+            &:hover {
+              background-color: transparent;
+              color: $primary;
+            }
+          }
+          &__icon-arrow {
+            display: none;
+          }
+          &.active {
+            .el-submenu__title {
+              color: $primary;
+              box-shadow: inset 0px -2px 0px #3366FF;
+            }
+          }
+        }
+      }
+    }
+  }
+  &-sublist {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    &__header {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      color: $grey-600;
+    }
+    &__inner {
+      list-style-type: none;
+      padding-left: 0;
+      margin-bottom: 0;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+      margin-top: 8px;
+      li {
+        display: flex;
+        align-items: center;
+        &:not(:last-child)::after {
+          content: '•';
+          display: block;
+          margin: 0 4px;
+        }
+        a {
+          display: block;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 20px;
+          color: $grey-500;
+          font-feature-settings: 'pnum' on, 'lnum' on;
+        }
+      }
+    }
+  }
+  &-submenu {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    &:first-child {
+      padding-top: 40px;
+      .navbar-sublist {
+        &:nth-child(1), &:nth-child(2) {
+          .navbar-sublist__inner {
+            li:nth-last-child(1), li:nth-last-child(2) {
+              margin-top: 4px;
+            }
+          }
+        }
+        &:nth-child(3) {
+          li:nth-last-child(1), li:nth-last-child(2), li:nth-last-child(3) {
+            margin-top: 4px;
+          }
+        }
+        &:nth-child(5) {
+          li:nth-last-child(1) {
+            margin-top: 4px;
+          }
+        }
+        &:nth-child(1), &:nth-child(3), &:nth-child(4), &:nth-child(5) {
+          flex-basis: 180px;
+          li:nth-child(2)::after {
+            content: initial;
+          }
+        }
+        &:nth-child(2) {
+          flex-basis: 384px;
+          li:nth-child(4)::after {
+            content: initial;
+          }
+        }
+      }
+    }
+    &:last-child {
+      padding-top: 24px;
+      padding-bottom: 54px;
+      .navbar-sublist {
+        &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4) {
+          flex-basis: 180px;
+        }
+        &:nth-child(1) .navbar-sublist__inner li:nth-child(3),
+        &:nth-child(2) .navbar-sublist__inner li:nth-child(4),
+        &:nth-child(3) .navbar-sublist__inner li:nth-child(3),
+        &:nth-child(4) .navbar-sublist__inner li:nth-child(3),
+        &:nth-child(4) .navbar-sublist__inner li:nth-child(4),
+
+        &:nth-child(5) .navbar-sublist__inner li:nth-child(5),
+        &:nth-child(5) .navbar-sublist__inner li:nth-child(6),
+        &:nth-child(5) .navbar-sublist__inner li:nth-child(7),
+        &:nth-child(5) .navbar-sublist__inner li:nth-child(8),
+        &:nth-child(5) .navbar-sublist__inner li:nth-child(9){
+          margin-top: 4px;
+        }
+        &:nth-child(1) .navbar-sublist__inner li:nth-child(2):after,
+        &:nth-child(2) .navbar-sublist__inner li:nth-child(3):after,
+        &:nth-child(3) .navbar-sublist__inner li:nth-child(2):after,
+        &:nth-child(4) .navbar-sublist__inner li:nth-child(2):after,
+        &:nth-child(5) .navbar-sublist__inner li:nth-child(4):after{
+          content: initial;
+        }
+        &:nth-child(5) {
+          flex-basis: 384px;
+        }
+      }
+    }
+
+    &-popper {
+      width: 100%;
+      top: 72px !important;
+      left: 0 !important;
+      .el-menu {
+        &--popup {
+          &-bottom-start {
+            margin-top: 0;
+          }
+          box-shadow: none;
+        }
+      }
+    }
+  }
+
+  &-actions {
+    &--logged {
+      .navbar-actions {
+        &__inner {
+          display: flex;
+          align-items: center;
+          margin-right: 8px;
+        }
+        &__button {
+          border: 0;
+          background-color: transparent;
+          padding: 0;
+          margin: 0;
+          outline: none;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          &:not(&:last-child) {
+            margin-right: 8px;
+          }
+          .v-icon {
+            width: 24px;
+            height: 24px;
+            svg {
+              width: 24px;
+              height: 24px;
+              g, path {
+                fill: $grey-500;
+              }
+            }
+          }
+          &:hover {
+            background-color: $grey-200;
+            .v-icon svg g, .v-icon svg path {
+              fill: $primary;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &-balance {
+    padding: 8px 12px;
+    cursor: pointer;
+    span.v-icon {
+      margin-right: 8px;
+      width: 24px;
+      height: 24px;
+      svg {
+        width: 24px;
+        height: 24px;
+        g, path {
+          fill: $grey-500;
+        }
+      }
+    }
+    &:hover {
+      .v-icon svg g, .v-icon svg path {
+        fill: $primary;
+      }
+    }
+  }
+}

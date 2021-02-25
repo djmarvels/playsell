@@ -1,5 +1,6 @@
 import webpack from 'webpack'
 export default {
+  target: 'static',
   head: {
     title: 'PlaySell',
     meta: [
@@ -16,7 +17,6 @@ export default {
   },
   css: [
     '~/styles/style.scss',
-    'element-ui/lib/theme-chalk/index.css',
   ],
   plugins: [
     '@/plugins/element-ui',

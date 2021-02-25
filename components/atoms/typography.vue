@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/styles/colors.scss";
+@import "@/styles/interface/colors.scss";
 .text {
   font-style: normal;
   font-display: swap;
