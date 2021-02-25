@@ -1,4 +1,5 @@
 .footer {
+  margin-top: 64px;
   &-social {
     background-color: $grey;
     @include only-width(32px);
