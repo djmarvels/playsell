@@ -1,0 +1,40 @@
+.footer {
+  &-social {
+    background-color: $grey;
+    @include only-width(32px);
+    @include only-height(32px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 350ms;
+    &:not(:last-child) {
+      margin-right: 12px;
+    }
+    .v-icon {
+      @include only-width(16px);
+      @include only-height(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      svg {
+        width: 16px;
+        height: 16px;
+        g, path {
+          fill: #ffffff;
+          transition: fill 350ms;
+        }
+      }
+    }
+    &:hover {
+      background-color: $grey-300;
+      .v-icon {
+        svg {
+          g, path {
+            fill: $grey;
+          }
+        }
+      }
+    }
+  }
+}
