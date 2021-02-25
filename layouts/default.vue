@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <navbar :logged="true" />
+    <navbar :logged="false" />
     <el-main>
       <Nuxt />
     </el-main>

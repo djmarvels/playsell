@@ -17,6 +17,13 @@ export default {
       this.generateIconClass()
     })
   },
+  watch: {
+    name: {
+      handler(name) {
+        this.v_icon = require(`~/assets/icons/${name}.svg?raw`)
+      }, deep: true
+    }
+  },
   methods: {
     generateIconClass () {
       if (typeof this.size !== 'undefined') {

@@ -1,7 +1,10 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" :class="{ 'navbar-open': showResponsiveMenu }">
     <div class="navbar__inner">
       <nuxt-link class="navbar-brand" :to="{ name: 'index' }" @click.native="emptyMenu">Playsell</nuxt-link>
+      <button class="navbar-toggler" @click="handleResponsiveMenu">
+        <icon :name="(!showResponsiveMenu) ? 'menu' : 'close'" />
+      </button>
       <el-menu class="navbar-menu" v-model="activeMenu" mode="horizontal" menu-trigger="click" ref="navigation"
                @select="selectMenu" @open="selectMenu('all_games')" @close="emptyMenu">
         <el-menu-item index="samp" :class="{ 'active': (activeMenu === 'samp') }">SAMP</el-menu-item>
@@ -10,7 +13,9 @@
         <el-menu-item index="gta5" :class="{ 'active': (activeMenu === 'gta5') }">GTA 5</el-menu-item>
         <el-menu-item index="steam" :class="{ 'active': (activeMenu === 'steam') }">Steam</el-menu-item>
         <el-menu-item index="minecraft" :class="{ 'active': (activeMenu === 'minecraft') }">Minecraft</el-menu-item>
-        <el-submenu index="all_games" popper-class="navbar-submenu-popper" :class="{ 'active': (activeMenu === 'all_games') }">
+        <el-submenu index="all_games" :class="{ 'active': (activeMenu === 'all_games') }" ref="popper_all_games"
+        :popper-class="logged ? 'navbar-submenu-popper' : 'navbar-submenu-popper navbar-submenu-popper--to_login'"
+        >
           <template slot="title">Все игры <icon name="chevron_down" /></template>
           <div class="navbar-submenu" slot="default">
             <div class="navbar-sublist" v-for="(menu, menu_id) in sublist[0]" :key="menu_id">
@@ -59,12 +64,8 @@
               </ul>
             </div>
           </el-popover>
-
-          <button class="navbar-actions__button" type="button">
-            <icon name="sms" />
-          </button>
-
-          <el-popover placement="bottom-start" width="400" trigger="click" class="navbar-actions__popover-button" popper-class="navbar-actions__popover" :append-to-body="true" :visible-arrow="false">
+          <button class="navbar-actions__button" type="button"><icon name="sms" /></button>
+          <el-popover placement="bottom-start" width="400" trigger="click" class="navbar-actions__popover-button" popper-class="navbar-actions__popover navbar-actions__popover--alert" :append-to-body="true" :visible-arrow="false">
             <button class="navbar-actions__popover-button-inner" type="button" slot="reference">
               <icon name="bell" />
             </button>
@@ -103,7 +104,6 @@
               </div>
             </div>
           </el-popover>
-
         </div>
         <div class="navbar-balance">
           <icon name="pay_credit_card" />
@@ -154,6 +154,15 @@ export default {
     },
     emptyMenu () {
       this.activeMenu = ''
+    },
+    handleResponsiveMenu () {
+      this.showResponsiveMenu = !this.showResponsiveMenu
+      if (!this.showResponsiveMenu) {
+        this.activeMenu = ''
+        if (this.$refs.popper_all_games.opened) {
+          this.$refs.popper_all_games.handleClick()
+        }
+      }
     }
   },
   props: {
@@ -165,6 +174,7 @@ export default {
   data: () => ({
     activeMenu: '',
     activeSubMenu: '',
+    showResponsiveMenu: false,
     sublist: [
       [
         {
@@ -276,13 +286,42 @@ export default {
   flex-basis: 100%;
   box-shadow: inset 0px -1px 0px #E9EEF4;
   background: $white;
+
   &__inner {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    @media (min-width: 1200px) {
+      max-width: 1200px;
+    }
+    @media (max-width: 1199px) and (min-width: 992px) {
+      max-width: 992px;
+    }
+    @media (max-width: 991px) and (min-width: 768px) {
+      max-width: 768px;
+
+    }
+    @media (max-width: 767px) and (min-width: 576px) {
+      max-width: 576px;
+    }
+    @media (max-width: 575px) and (min-width: 0px) {
+      max-width: 100%;
+    }
+
+    @media (max-width: 991px) {
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: map-get($spacings, 5);
+      padding-bottom: map-get($spacings, 5);
+    }
+
+    @media (max-width: 575px) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
   }
   &-brand {
     font-family: Arial, sans-serif;
@@ -291,9 +330,10 @@ export default {
     font-size: 24px;
     line-height: 24px;
     letter-spacing: 0.01em;
-    margin-top: map-get($spacings, 5);
-    margin-bottom: map-get($spacings, 5);
-    margin-right: map-get($spacings, 6);
+    @media (min-width: 992px) {
+      margin-top: map-get($spacings, 5);
+      margin-bottom: map-get($spacings, 5);
+    }
     height: 32px;
     display: flex;
     align-items: center;
@@ -303,8 +343,47 @@ export default {
     width: 90px;
     white-space: nowrap;
     transition: color 350ms;
+    @media (min-width: 1200px) {
+      margin-right: map-get($spacings, 6);
+    }
+    @media (max-width: 1199px) and (min-width: 992px) {
+      margin-right: 12px;
+    }
+    @media (max-width: 991px) {
+      order: 1;
+    }
+    @media (max-width: 767px) {
+      margin-right: 0;
+    }
     &:hover {
       color: $primary;
+    }
+  }
+
+  &-toggler {
+    @media (min-width: 992px) {
+      display: none;
+    }
+    @media (max-width: 991px) {
+      border: 0;
+      outline: none;
+      padding: 0;
+      background-color: $white;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 350ms;
+      order: 3;
+      margin-left: 12px;
+      &:hover {
+        background-color: $grey-200;
+      }
+    }
+    @media (max-width: 767px) {
+      order: 2;
+      margin-left: 0;
     }
   }
 
@@ -315,13 +394,28 @@ export default {
       justify-content: flex-start;
       background-color: transparent;
       &--horizontal {
-        min-width: 425px;
-        max-width: 425px;
+        @media (min-width: 992px) {
+          min-width: 425px;
+          max-width: 425px;
+        }
         width: 100%;
         border-bottom: none;
+        @media (max-width: 991px) {
+          justify-content: space-between;
+          overflow: hidden;
+          height: 0;
+          transition: height 350ms;
+        }
       }
       &::after, &::before {
         content: inherit;
+      }
+      @media (max-width: 991px) {
+        order: 4;
+        flex-basis: 100%;
+      }
+      @media (max-width: 575px) {
+        flex-wrap: wrap;
       }
     }
     .el-menu-item {
@@ -339,6 +433,11 @@ export default {
       border-bottom: none;
       box-shadow: inset 0px -2px 0px transparent;
       transition: all 350ms;
+      @media (max-width: 575px) {
+        height: auto;
+        flex-basis: calc(100% / 3);
+        justify-content: center;
+      }
       &:hover {
         background-color: transparent;
         color: $primary;
@@ -346,7 +445,9 @@ export default {
       &.active {
         color: $primary;
         border-bottom: none;
-        box-shadow: inset 0px -2px 0px #3366FF;
+        @media (min-width: 576px) {
+          box-shadow: inset 0px -2px 0px #3366FF;
+        }
       }
     }
   }
@@ -356,10 +457,33 @@ export default {
     align-items: flex-start;
     justify-content: flex-start;
     margin-left: auto;
+    transition: height 350ms;
+
+    @media (max-width: 991px) and (min-width: 768px) {
+      order: 2;
+    }
+
+
+    @media (max-width: 767px) {
+      order: 3;
+      flex-basis: 100%;
+      height: 0;
+      overflow: hidden;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 575px) {
+      flex-wrap: wrap;
+    }
 
     &--to_login {
-      padding-top: 26px;
-      padding-bottom: 26px;
+      @media (min-width: 768px) {
+        padding-top: 26px;
+        padding-bottom: 26px;
+      }
+      @media (max-width: 991px) {
+        justify-content: flex-end;
+      }
       a {
         display: block;
         color: $grey-600;
@@ -373,18 +497,20 @@ export default {
         }
       }
     }
-
     &--logged {
-      padding: 16px 0;
+      @media (min-width: 768px) {
+        padding: 16px 0;
+      }
       align-items: center;
     }
   }
-
-
-
   &-balance {
     display: flex;
     align-items: center;
+    @media (max-width: 575px) {
+      flex-basis: calc(50% - 24px);
+      justify-content: flex-end;
+    }
     span:not(.v-icon) {
       font-style: normal;
       font-weight: 600;
@@ -403,17 +529,23 @@ export default {
       }
     }
   }
-
   &-user {
     margin-left: 8px;
     cursor: pointer;
     transition: background-color 350ms;
+    @media (max-width: 575px) {
+      margin-right: 8px;
+      flex-basis: 100%;
+    }
     &__inner {
       display: flex;
       align-items: center;
       justify-content: flex-start;
       padding: 4px 8px;
       outline: none;
+      @media (max-width: 575px) {
+        justify-content: flex-end;
+      }
     }
     &-label {
       font-style: normal;
@@ -437,6 +569,36 @@ export default {
       background-color: $grey-200;
       .navbar-user-label {
         color: $primary;
+      }
+    }
+  }
+  &-open {
+    @media (max-width: 991px) and (min-width: 576px) {
+      .navbar__inner {
+        padding-bottom: 0;
+      }
+    }
+    @media (max-width: 991px) {
+      .navbar-menu {
+        &.el-menu--horizontal {
+          height: 72px;
+          @media (max-width: 575px) {
+            height: 120px;
+          }
+        }
+      }
+      .navbar-actions {
+        &--logged {
+          height: 40px;
+          padding: 16px 0;
+          @media (max-width: 575px) {
+            height: auto;
+          }
+        }
+        &--to_login {
+          padding: 16px 0;
+          height: auto;
+        }
       }
     }
   }
