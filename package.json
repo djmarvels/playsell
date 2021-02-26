@@ -27,6 +27,7 @@
     "nuxt-socket-io": "^1.1.14",
     "nuxt-vuex-localstorage": "^1.0.4",
     "owl.carousel": "^2.3.4",
+    "terser-webpack-plugin": "^4.2.3",
     "vue-data-tables": "^3.4.5",
     "vue-filepond": "^6.0.3"
   },
