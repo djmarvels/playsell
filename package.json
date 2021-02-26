@@ -14,6 +14,7 @@
     "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/moment": "^1.6.1",
     "core-js": "^3.6.5",
+    "css-mqpacker": "^7.0.0",
     "element-ui": "^2.13.2",
     "filepond": "^4.25.1",
     "filepond-plugin-file-validate-size": "^2.2.2",
