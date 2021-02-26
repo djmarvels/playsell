@@ -1,0 +1,130 @@
+.el-form {
+  &-item {
+    margin-bottom: 24px;
+    &__content {
+      line-height: normal;
+      font-size: initial;
+    }
+  }
+}
+
+.el-button {
+  line-height: normal;
+  transition: 350ms;
+  padding: 14px 18px;
+  border: 0;
+  height: auto;
+  font-size: initial;
+  span {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    display: block;
+  }
+  &--primary {
+    background: $primary;
+    &:hover {
+      background: $primary-600;
+    }
+    &:focus {
+      background: $primary-600;
+    }
+    &:active {
+      background: $primary-100;
+    }
+  }
+  &--plain {
+    background: transparent;
+    border: 1px solid $grey-300;
+    &:hover {
+      background: transparent;
+      border-color: $primary;
+    }
+    &:focus {
+      background: transparent;
+      border-color: $primary;
+    }
+  }
+  &:active {
+    transform: scale(.95);
+  }
+}
+
+.el-input {
+  &__inner {
+    background-color: $grey-200;
+    padding: 13px 16px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    height: auto;
+    border: 1px solid #E9EFF5;
+    border-radius: 4px;
+    color: $grey-600;
+    transition: border-color 350ms;
+    display: block;
+    &::placeholder {
+      color: $grey;
+    }
+    &:hover {
+      border-color: #E9EFF5;
+    }
+    &:focus {
+      border-color: $grey;
+    }
+  }
+  &-group {
+    display: block;
+    border-collapse: initial;
+    border-spacing: initial;
+    &--append {
+      vertical-align: initial;
+    }
+    &__append {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: auto;
+      bottom: auto;
+      height: 48px;
+      border: 0;
+      background-color: transparent;
+      border-radius: initial;
+      padding: 0;
+      white-space: normal;
+      width: auto;
+      button.el-button {
+        &--icon {
+          border-radius: initial;
+          line-height: normal;
+          padding: 0;
+          background-color: transparent;
+          border: 0;
+          height: 24px;
+          width: 24px;
+          white-space: normal;
+          display: block;
+          transition: 350ms;
+          font-weight: initial;
+          margin: 12px 12px 12px 0;
+          span {
+            height: 24px;
+            width: 24px;
+            display: block;
+            .v-icon svg g, .v-icon svg path {
+              transition: fill 350ms;
+            }
+          }
+          &:hover {
+            .v-icon svg g, .v-icon svg path {
+              fill: $primary;
+            }
+          }
+        }
+      }
+    }
+  }
+}

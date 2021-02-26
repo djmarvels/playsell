@@ -7,7 +7,7 @@
     <div class="cards cards--index">
       <div class="cards-title">Рекомендации для вас</div>
       <div class="cards-body">
-        <div class="card" v-for="(card, card_id) in recommends" :key="card_id">
+        <nuxt-link class="card" v-for="(card, card_id) in recommends" :key="card_id" :to="{ name: 'index' }">
           <div class="card-title">{{ card.title }}</div>
           <div class="card-text" v-html="card.text" />
           <div class="card-price">
@@ -22,7 +22,7 @@
             </div>
             <div class="card-author__inner" :class="{ 'card-author__inner--success': card.price >= 10000 }">{{ card.seller }}</div>
           </div>
-        </div>
+        </nuxt-link>
       </div>
     </div>
   </div>
