@@ -40,8 +40,8 @@
         </el-submenu>
       </el-menu>
       <div class="navbar-actions navbar-actions--to_login" v-if="!logged">
-        <nuxt-link class="navbar-link" :to="{ name: 'index' }">Войти</nuxt-link>
-        <nuxt-link class="navbar-link" :to="{ name: 'index' }">Зарегистрироваться</nuxt-link>
+        <nuxt-link class="navbar-link" :to="{ name: 'login' }">Войти</nuxt-link>
+        <nuxt-link class="navbar-link" :to="{ name: 'register' }">Зарегистрироваться</nuxt-link>
       </div>
       <div class="navbar-actions navbar-actions--logged" v-if="logged">
         <div class="navbar-actions__inner">
@@ -150,6 +150,9 @@ export default {
   },
   methods: {
     selectMenu (index) {
+      if (index !== 'all_games') {
+        this.$router.push({ name: index })
+      }
       this.activeMenu = index
     },
     emptyMenu () {

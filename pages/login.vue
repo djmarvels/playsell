@@ -1,11 +1,11 @@
 <template>
   <div class="card card--login">
     <div class="card-title">Вход</div>
-    <el-form :model="loginForm">
-      <el-form-item prop="email">
+    <el-form :model="loginForm" ref="loginForm" status-icon :rules="loginRules" :inline-message="true">
+      <el-form-item prop="email" :error="loginErrors.email">
         <el-input v-model="loginForm.email" type="text" placeholder="Введите электронный адрес" />
       </el-form-item>
-      <el-form-item prop="password">
+      <el-form-item prop="password" :error="loginErrors.password">
         <el-input v-model="loginForm.password" :type="!showPassword ? 'password' : 'text'" placeholder="Пароль">
           <el-button slot="append" @click="showPassword = !showPassword" type="icon">
             <icon :name="!showPassword ? 'eye' : 'eye_off'" />
@@ -16,7 +16,7 @@
         <nuxt-link :to="{ name: 'restore' }" class="card-link">Забыли пароль</nuxt-link>
       </el-form-item>
       <el-form-item>
-        <el-button native-type="button" type="primary">Войти</el-button>
+        <el-button native-type="button" type="primary" @click="submitLogin">Войти</el-button>
       </el-form-item>
       <el-form-item>
         <div class="card-login-actions">
@@ -48,13 +48,68 @@ export default {
   components: {
     icon,
   },
-  data: () => ({
-    loginForm: {
-      email: null,
-      password: null
+  methods: {
+    async submitLogin () {
+      try {
+        // this.registerMessages.login = { state: 'error', message: '', error: 'Логин уже занят' }
+        const valid = await this.validForm ()
+      } catch (e) {
+        console.log(e)
+      }
     },
-    showPassword: false
-  })
+    validForm () {
+      return new Promise((resolve, reject) => {
+        this.$refs.loginForm.validate((valid) => {
+          if (valid) {
+            resolve ()
+          } else {
+            reject ({ response: 'not valid form' })
+          }
+        })
+      })
+    }
+  },
+  data: () => {
+    const checkPassword = (rule, value, callback) => {
+      if (!value.length) {
+        return callback(new Error('Пожалуйста введите пароль'))
+      } else if (value.match(/[A-Za-z0-9]+/) === null) {
+        return callback(new Error('Только латинские буквы и цифры'))
+      } else if (value.match(/[A-Za-z0-9]+/)[0].length !== value.length) {
+        return callback(new Error('Только латинские буквы и цифры'))
+      } else if (value.length < 8) {
+        return callback(new Error('Не менее 8 символов'))
+      }
+      else {
+        callback ();
+      }
+    };
+    const checkEmail = (rule, value, callback) => {
+      if (!value.length) {
+        return callback(new Error('Пожалуйста адрес электронной почты'))
+      } else if (value.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gm) === null) {
+        return callback(new Error('Неверный адрес электронной почты'))
+      }
+      else {
+        callback ();
+      }
+    };
+    return {
+      loginForm: {
+        email: '',
+        password: ''
+      },
+      loginRules: {
+        password: [{ validator: checkPassword, trigger: 'change' }],
+        email: [{ validator: checkEmail, trigger: 'change' }]
+      },
+      loginErrors: {
+        email: '',
+        password: ''
+      },
+      showPassword: false
+    }
+  }
 }
 </script>
 

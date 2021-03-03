@@ -22,21 +22,26 @@ a {
     margin-right: auto;
     padding: 0;
     overflow: hidden;
+    height: auto;
     @media (min-width: 1200px) {
       max-width: 1200px;
+      min-height: calc(100vh - 72px);
     }
     @media (max-width: 1199px) and (min-width: 992px) {
       max-width: 992px;
+      min-height: calc(100vh - 72px);
     }
     @media (max-width: 991px) and (min-width: 768px) {
       max-width: 768px;
-
+      min-height: calc(100vh - 112px);
     }
     @media (max-width: 767px) and (min-width: 576px) {
       max-width: 576px;
+      min-height: calc(100vh - 80px);
     }
     @media (max-width: 575px) and (min-width: 0px) {
       max-width: 100%;
+      min-height: calc(100vh - 80px);
     }
   }
 }

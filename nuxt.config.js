@@ -32,6 +32,14 @@ export default {
     locales: ['ru']
   },
   router: {
+    extendRoutes(routes, resolve) {
+      const navbarRoutes = [ 'samp', 'crmp', 'wot', 'gta5', 'steam', 'minecraft' ]
+      for (const route of navbarRoutes) {
+        routes.push({
+          name: route, path: `/${route}`, component: resolve(__dirname, 'pages/catalog.vue')
+        })
+      }
+    }
   },
   modules: [
     '@nuxtjs/axios',
@@ -49,7 +57,7 @@ export default {
       file: { esModule: false },
       url: { esModule: false }
     },
-    postcss: {
+    /*postcss: {
       plugins: {
         cssnano: {
           preset: [
@@ -115,6 +123,6 @@ export default {
     optimizeCSS: {
       cssProcessor: require('css-mqpacker'),
       cssProcessorPluginOptions: { sort: true }
-    }
+    }*/
   }
 }

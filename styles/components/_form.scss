@@ -5,6 +5,36 @@
       line-height: normal;
       font-size: initial;
     }
+    &__error {
+      color: $error;
+      padding-top: 0;
+      font-style: normal;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 20px;
+      margin-top: 8px;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      &--inline {
+        margin-left: 0;
+      }
+    }
+    &--feedback {
+      .el-input__validateIcon {
+        display: block;
+      }
+    }
+    &.is-error {
+      .el-form-item {
+        &__content {
+          .el-input {
+            &__inner {
+              border-color: #E9EFF5;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -70,10 +100,28 @@
       color: $grey;
     }
     &:hover {
-      border-color: #E9EFF5;
+      border-color: #E9EFF5 !important;
     }
     &:focus {
-      border-color: $grey;
+      border-color: $grey !important;
+    }
+  }
+  &__suffix {
+    right: 12px;
+    color: initial;
+  }
+  &__icon {
+    width: 24px;
+  }
+  &__validateIcon {
+    line-height: unset;
+    background-position: center;
+    background-repeat: no-repeat;
+    &.el-icon-circle-close {
+      background-image: url('~assets/icons/input-danger.svg');
+    }
+    &.el-icon-circle-check {
+      background-image: url('~assets/icons/input-success.svg');
     }
   }
   &-group {
@@ -126,5 +174,20 @@
         }
       }
     }
+  }
+}
+
+.form-message {
+  font-style: normal;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+  color: $grey-500;
+  margin-top: 8px;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+
+  &--success {
+    color: $success;
   }
 }
