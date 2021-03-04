@@ -1,0 +1,41 @@
+.el-switch {
+  &__core {
+    background: $grey;
+    border: 0;
+    height: 18.5px;
+    border-radius: 32px;
+    &::after {
+      top: 2.5px;
+      bottom: 2.5px;
+      left: 3px;
+      width: 13px;
+      height: 13px;
+    }
+  }
+  &__label {
+    &--right {
+      margin-left: 12px;
+    }
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: $grey-600;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    height: 20px;
+    &.is-active {
+      color: $grey-600;
+    }
+  }
+  &.is-active {
+    .el-switch {
+      &__core {
+        border-color: $primary;
+        background: $primary;
+        &::after {
+          margin-left: -16px;
+        }
+      }
+    }
+  }
+}

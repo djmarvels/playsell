@@ -175,6 +175,34 @@
       }
     }
   }
+  &--search {
+    &.el-input {
+      .el-input {
+        &__inner {
+          background: $white;
+          border-color: rgba(0,0,0,0);
+          padding-right: 52px;
+          @include only-width(344px);
+        }
+        &-group {
+          &__append {
+            .el-button {
+              margin-right: 12px;
+              span {
+                .v-icon {
+                  svg {
+                    g, path {
+                      fill: $grey-500;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .form-message {

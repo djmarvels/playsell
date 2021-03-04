@@ -22,6 +22,7 @@ export default {
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/axios',
+    { src: '@/plugins/owl.carousel', ssr: false }
   ],
   components: false,
   buildModules: [

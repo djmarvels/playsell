@@ -7,14 +7,10 @@
       </button>
       <el-menu class="navbar-menu" v-model="activeMenu" mode="horizontal" menu-trigger="click" ref="navigation"
                @select="selectMenu" @open="selectMenu('all_games')" @close="emptyMenu">
-        <el-menu-item index="samp" :class="{ 'active': (activeMenu === 'samp') }">SAMP</el-menu-item>
-        <el-menu-item index="crmp" :class="{ 'active': (activeMenu === 'crmp') }">CRMP</el-menu-item>
-        <el-menu-item index="wot" :class="{ 'active': (activeMenu === 'wot') }">WOT</el-menu-item>
-        <el-menu-item index="gta5" :class="{ 'active': (activeMenu === 'gta5') }">GTA 5</el-menu-item>
-        <el-menu-item index="steam" :class="{ 'active': (activeMenu === 'steam') }">Steam</el-menu-item>
-        <el-menu-item index="minecraft" :class="{ 'active': (activeMenu === 'minecraft') }">Minecraft</el-menu-item>
-        <el-submenu index="all_games" :class="{ 'active': (activeMenu === 'all_games') }" ref="popper_all_games"
-        :popper-class="logged ? 'navbar-submenu-popper' : 'navbar-submenu-popper navbar-submenu-popper--to_login'"
+        <el-menu-item :index="nav_route.route" :class="{ 'active': (activeMenu === nav_route.route) }" v-for="(nav_route, nav_route_id) in navbarRoutes" :key="nav_route_id">
+          {{ nav_route.title }}
+        </el-menu-item>
+        <el-submenu index="all_games" :class="{ 'active': (activeMenu === 'all_games') }" ref="popper_all_games" :popper-class="logged ? 'navbar-submenu-popper' : 'navbar-submenu-popper navbar-submenu-popper--to_login'"
         >
           <template slot="title">Все игры <icon name="chevron_down" /></template>
           <div class="navbar-submenu" slot="default">
@@ -174,7 +170,16 @@ export default {
       default: false,
     }
   },
+  created() {
+    this.activeMenu = (typeof this.navbarRoutes.find((value) => (value.route === this.$route.name))) ? this.$route.name : ''
+  },
+  watch: {
+    '$route' (to) {
+      this.activeMenu = (typeof this.navbarRoutes.find((value) => (value.route === to.name))) ? to.name : ''
+    },
+  },
   data: () => ({
+    navbarRoutes: [ { title: 'SAMP', route: 'samp' }, { title: 'CRMP', route: 'crmp' }, { title: 'WOT', route: 'wot' }, { title: 'GTA 5', route: 'gta5' }, { title: 'Steam', route: 'steam' }, { title: 'Minecraft', route: 'minecraft' } ],
     activeMenu: '',
     activeSubMenu: '',
     showResponsiveMenu: false,

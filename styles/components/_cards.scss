@@ -93,6 +93,7 @@
   background: $white;
   border-radius: 4px;
   padding: 24px;
+  display: block;
   @media (max-width: 1199px) {
     padding: 16px;
   }
@@ -127,6 +128,15 @@
         color: $primary;
       }
     }
+  }
+  &-quantity {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: $grey-500;
+    margin-top: 8px;
   }
   &-price {
     display: flex;
@@ -231,6 +241,11 @@
       }
     }
   }
+  &--money {
+    .card-text {
+      @include only-height(88px);
+    }
+  }
   &-login {
     &-actions {
       display: flex;
@@ -293,6 +308,30 @@
             }
           }
         }
+      }
+    }
+  }
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &--catalog {
+    background: $grey-200;
+    transition: background 350ms;
+    border-radius: 0;
+    &:hover {
+      background: $grey-300;
+    }
+    &-top {
+      margin-top: 32px;
+      .card-title {
+        font-size: 20px;
+        line-height: 32px;
+      }
+      .card-link {
+        white-space: nowrap;
+        font-weight: 500;
       }
     }
   }

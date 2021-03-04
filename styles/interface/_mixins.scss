@@ -9,3 +9,12 @@
   max-height: $height;
   height: $height;
 }
+
+@mixin empty-button () {
+  border: 0;
+  outline: none;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
